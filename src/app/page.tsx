@@ -1,6 +1,6 @@
 "use client";
 import { WheelDataType } from "react-custom-roulette";
-import Roulette from "./components/Roulette";
+import Roulette from "../components/Roulette";
 
 const data: Array<WheelDataType> = [
   { option: "BrioChef Madrid" },

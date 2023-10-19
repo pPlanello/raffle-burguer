@@ -1,9 +1,14 @@
 "use client";
 import { useState } from "react";
-import { Wheel, WheelDataType } from "react-custom-roulette";
+const Wheel = dynamic(
+  () => import("react-custom-roulette").then((mod) => mod.Wheel),
+  { ssr: false }
+);
+import { WheelDataType } from "react-custom-roulette";
 import className from "./Roulette.module.css";
 import Image from "next/image";
 import { PointerProps } from "react-custom-roulette/dist/components/Wheel/types";
+import dynamic from "next/dynamic";
 
 interface Props {
   data: Array<WheelDataType>;
@@ -18,7 +23,7 @@ const pointerProps: PointerProps = {
   style: pointerStyle,
 };
 
-const Roulette = (props: Props) => {
+export default function Roulette(props: Props): JSX.Element {
   const [mustSpin, setMustSpin] = useState<boolean>(false);
   const [prizeNumber, setPrizeNumber] = useState<number>(0);
 
@@ -33,6 +38,7 @@ const Roulette = (props: Props) => {
     <>
       <div className={className.roulette_container}>
         <Wheel
+          key={"roulette"}
           mustStartSpinning={mustSpin}
           spinDuration={0.2}
           prizeNumber={prizeNumber}
@@ -82,6 +88,4 @@ const Roulette = (props: Props) => {
       </div>
     </>
   );
-};
-
-export default Roulette;
+}
