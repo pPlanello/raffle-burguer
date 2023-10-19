@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Wheel = dynamic(
   () => import("react-custom-roulette").then((mod) => mod.Wheel),
   { ssr: false }
@@ -29,9 +29,14 @@ export default function Roulette(props: Props): JSX.Element {
 
   const handleSpinClick = () => {
     const newPrizeNumber = Math.floor(Math.random() * props.data.length);
+
     setPrizeNumber(newPrizeNumber);
     setMustSpin(true);
-    props.onResult(props.data[newPrizeNumber]);
+  };
+
+  const handleSpinStop = () => {
+    props.onResult(props.data[prizeNumber]);
+    setMustSpin(true);
   };
 
   return (
@@ -66,9 +71,7 @@ export default function Roulette(props: Props): JSX.Element {
             "#be1180",
             "#871f7f",
           ]}
-          onStopSpinning={() => {
-            setMustSpin(true);
-          }}
+          onStopSpinning={handleSpinStop}
         />
         <Image
           key={1}

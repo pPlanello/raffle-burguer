@@ -1,6 +1,9 @@
 "use client";
 import { WheelDataType } from "react-custom-roulette";
 import Roulette from "../components/Roulette";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
+import { useEffect, useState } from "react";
 
 const data: Array<WheelDataType> = [
   { option: "BrioChef Madrid" },
@@ -15,12 +18,20 @@ const data: Array<WheelDataType> = [
 ];
 
 export default function Home() {
+  const [isResult, setIsResult] = useState<boolean>(false);
   const onResult = (result: WheelDataType): void => {
+    setIsResult(true);
     console.log(result);
   };
+
+  const { width, height } = useWindowSize();
+
+  console.log(width, height);
+
   return (
     <>
       <Roulette data={data} onResult={onResult} />
+      {isResult ? <Confetti width={width} height={height} /> : null}
     </>
   );
 }
