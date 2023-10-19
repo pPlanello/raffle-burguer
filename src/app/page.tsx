@@ -3,7 +3,9 @@ import { WheelDataType } from "react-custom-roulette";
 import Roulette from "../components/Roulette";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { toastSuccess } from "@/components/Notification/toastNotifications";
+import { Restaurant } from "@/components/Notification/toast.interface";
 
 const data: Array<WheelDataType> = [
   { option: "BrioChef Madrid" },
@@ -17,16 +19,31 @@ const data: Array<WheelDataType> = [
   { option: "Cesar Burguers" },
 ];
 
+const restaurants: Array<Restaurant> = [
+  { name: "BrioChef Madrid", description: "" },
+  { name: "El Rancho de Santa Africa", description: "" },
+  { name: "Burmet Madrid", description: "" },
+  { name: "BDP Burguer", description: "" },
+  { name: "La Birrabar", description: "" },
+  { name: "Milwaukee Burguer", description: "" },
+  { name: "Daluburguer", description: "" },
+  { name: "El Torilurban", description: "" },
+  { name: "Cesar Burguers", description: "" },
+];
+
 export default function Home() {
+  const { width, height } = useWindowSize();
   const [isResult, setIsResult] = useState<boolean>(false);
+
   const onResult = (result: WheelDataType): void => {
     setIsResult(true);
-    console.log(result);
+
+    const restaurant = restaurants.filter(
+      (restaurant) => restaurant.name === result.option
+    )[0];
+
+    toastSuccess(restaurant);
   };
-
-  const { width, height } = useWindowSize();
-
-  console.log(width, height);
 
   return (
     <>
