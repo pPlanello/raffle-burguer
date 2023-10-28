@@ -17,6 +17,7 @@ const data: Array<WheelDataType> = [
   { option: "Daluburguer" },
   { option: "El Torilurban" },
   { option: "Cesar Burguers" },
+  { option: "Hundred Burguers"}
 ];
 
 const restaurants: Array<Restaurant> = [
