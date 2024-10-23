@@ -22,7 +22,7 @@ export const toastSuccess = (restaurant: Restaurant) => {
         <Image
           className="w-full"
           src={image}
-          alt="Sunset in the mountains"
+          alt={restaurant.name}
           width={500}
           height={500}
         />
